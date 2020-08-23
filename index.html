@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Digital Library</title>
+        <link rel="icon" href="" type="" sizes="16x16">
+        <!-- Personal Stylesheet -->
+        <link rel="stylesheet" href="styles/reset.css">
+        <link rel="stylesheet" href="styles/main.css">
+    </head>
+
+    <body>
+        <nav class="nav">
+            <div class="nav__title">
+                <a href="#" class="nav__link nav__link-title">Digital Library</a>
+            </div>
+            <div class="nav__items">
+                <a href="#" class="nav__link nav__link--active">Books</a>
+                <a href="#" class="nav__link">Movies</a>
+            </div>
+        </nav>
+        <main class="main-content">
+            <section class="books-holder">
+                <article class="addbook-card">
+                    <span class="__add-btn __add-btn--openModal">+</span>
+                </article>
+                <!-- <article class="book-card">
+                    <div class="book-card__img">
+                        <img src="https://images.unsplash.com/photo-1597274148204-55e0c4d14206?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=401&q=80" alt="">
+                    </div>
+                    <div class="book-card__info">
+                        <h2 class="book-card__title">Keep Going</h2>
+                        <h3 class="book-card__author">Shubham</h3>
+                    </div>
+                    </article>  -->
+                
+            </section>
+        </main>
+        <aside class="modal">
+            <div class="modal__content">
+                <header class="modal__header">
+                    <h2 class="modal__intro">Add New Book</h2>
+                    <span class="modal__btn-close modal__btn--closeModal">&times;</span>
+                </header>
+                <form class="modal__form" action="">
+                    <div class="modal__form-group">
+                        <label class="modal__form-label" for="title">Title</label>
+                        <input class="modal__form-input" type="text" name="title" id="title" required >
+                    </div>
+                    <div class="modal__form-group">
+                        <label class="modal__form-label" for="author">Author</label>
+                        <input class="modal__form-input" type="text" name="author" id="author" required>
+                    </div>
+                    <div class="modal__form-group">
+                        <label class="modal__form-label" for="url" name="url">Enter Image URL</label>
+                        <input class="modal__form-input" type="url" name="url" id="url">
+                    </div>
+                    <div class="modal__form-group">
+                        <label class="modal__form-label" for="status">Reading Status</label>
+                        <select class="modal__form-select" name="status" id="status" required>
+                            <option selected disabled hidden></option>
+                            <option value="not-started">Not Started</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="finshed">Finished</option>
+                        </select>
+                    </div>
+                    <div class="modal__form-group">
+                        <button class="modal__btn-addBook" type="submit">Add Book</button>
+                    </div>
+                </form>
+            </div>
+        </aside>
+        <footer class="footer">
+            <small>&copy;2020 Made with by CoderOO7</small>
+        </footer>
+        <script src="/scripts/main.js"></script>
+    </body>
+
+</html>

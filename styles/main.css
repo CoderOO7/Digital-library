@@ -1,0 +1,259 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --blue: #1161ee;
+    --red: #fa1616;
+    --pink: #f09ae9;
+    --gray: #7f7f7f;
+    --bg-white-color: #f7f6f3;
+    --light-black-coor: #2f2f2f;
+}
+
+html,body{
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-white-color);
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    top:0;
+    left: 0;
+    height: 9vh;
+    width: 100%;
+    letter-spacing: 0.04em;
+    color: var(--light-black-color,#000);
+    z-index: 9999;
+    background-color: var(--bg-white-color);
+    -webkit-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 29px 0px rgba(0,0,0,0.75);
+}
+
+.nav__title{
+    font-size: 1.4em;
+    font-weight: 900;
+}
+
+.nav__title, .nav__items{
+    display: flex;
+}
+
+.nav__link{
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+    color: inherit;
+    text-decoration: none;
+}
+
+/* .nav__link::after{
+  content:"";
+  height: 0;
+  visibility: hidden;
+  overflow: hidden;
+  user-select: none;
+  pointer-events: none;
+  border-bottom: 2px solid #000;
+} */
+
+.nav__link:not(.nav__link-title):hover{
+    border-bottom: 2px solid #000;
+}
+
+.main-content{
+    flex: 1 0 auto;
+    margin-top: 4em; 
+}
+
+.books-holder{
+    display: grid;
+    /* grid-auto-rows: 40vmax; */
+    grid-template-columns: repeat(auto-fill,minmax(auto,200px));
+    grid-gap: 3em;
+    padding: 3em;
+}
+
+.book-card{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.book-card:hover{
+    cursor: pointer;
+    transform: scale(1.02);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.75);
+}
+.book-card:hover .book-card__img{
+    background-size: 120%;
+}
+.book-card__img{
+    flex: 1;
+    background-position: scale;
+    background-size: contain;
+}
+.book-card__img > img{
+    object-fit: cover;
+    width: 100%;
+    height: 34vh;
+}
+
+.book-card__title{
+    font-weight: 600;
+}
+.book-card__author{
+    color: var(--gray,#9f9f9f);
+}
+.book-card__title,.book-card__author{
+    padding: 0.2em
+}
+
+.addbook-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(0,0,0,0.1);
+    height: 40vh;
+    width: 200px;
+}
+
+.addbook-card .__add-btn{
+    padding:0.2em;
+    cursor: pointer;
+    color: var(--pink);
+    border-radius: 50%;
+    font-size: 4em;
+}
+
+.addbook-card .__add-btn:hover{
+    font-size: 5em;
+    cursor: poiner;
+}
+
+/*************
+    MODAL    *
+**************/
+
+.modal{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999999;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal__content{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-around; */
+    /* align-items: center; */
+    position: relative;
+    width: 60vmin;
+    height: 85vh;
+    margin: auto;
+    padding: 2em;
+    margin: 2em auto;
+    background-size: cover;
+    background-position: center;
+    background-image: url("/assets/image/form_bg.jpeg");
+}
+.modal__header{
+    position: relative;
+    top: 0;
+    left: 0;
+    text-align: center;
+}
+.modal__header .modal__intro{
+    font-weight: 800;
+    font-size:  2em;
+    color: antiquewhite;
+}
+.modal__header .modal__btn-close{
+    position: absolute;
+    top:-30px;
+    left: 99%;
+    font-size: 2em;
+}
+.modal__header .modal__btn-close:hover{
+    cursor: pointer;
+    color: var(--light-black-coor);
+}
+
+.modal__form{
+    display: flex;
+    flex-direction: column;
+    margin:auto;
+    width: 100%;
+    /* color: #fff; */
+    /* background-color: #fff;/ */
+}
+
+.modal__form-group{
+    display: flex;
+    flex-direction: column;
+    margin-top:0.3em;
+}
+
+.modal__form-group+.modal__form-group{
+    margin-top:0.4em;
+}
+
+.modal__form-label{
+    padding: 0.2em;
+    font-weight: 700;
+    font-size: 0.7em;
+    color: aquamarine;
+    text-transform: uppercase;
+}
+
+.modal__form-input,.modal__form-select{
+    padding: 0.4em;
+    height: 3em;
+    border: none;
+    border-radius: 18px;
+    text-indent: 0.4em;
+    background-color: #fff;
+}
+
+.modal__btn-addBook{
+    /* margin-top: 1em; */
+    cursor: pointer;
+    height: 3em;
+    border: none;
+    border-radius: 18px;
+    color:white;
+    background-color: var(--blue);
+}
+
+.modal--open{
+    display: block;
+}
+
+.footer{
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    background-color: #000;
+    padding: 1em 0;
+}
