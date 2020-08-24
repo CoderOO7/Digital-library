@@ -8,7 +8,7 @@ let library = [
     id: +new Date(),
     title: "Keep Going",
     author: "Dost", 
-    url: "./assets/image/kg.jpg",
+    url: "assets/image/kg.jpeg",
     status: "In Progress"
   }
 ];
@@ -93,7 +93,7 @@ function render(books){
     bookCard.setAttribute('id',`${book.id}`);
     bookCardImgDiv.setAttribute('class','book-card__img');
     bookCardImg.setAttribute('src',`${book.url}`);
-    bookCardImg.setAttribute('onerror',"this.onerror=null;this.src='/assets/image/no_cover.jpeg'")
+    bookCardImg.setAttribute('onerror',"this.onerror=null;this.src='assets/image/no_cover.jpeg'")
     bookCardInfo.setAttribute('class','book-card__info');
     bookCardTitle.setAttribute('class','book-card__title');
     bookCardAuthor.setAttribute('class','book-card__author');
