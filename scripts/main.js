@@ -13,6 +13,24 @@ let library = [
   }
 ];
 
+const firebaseConfig = {
+  apiKey: "AIzaSyCHIrdeVCL_z2Hx1gqVFjwNuyEBVM9mt04",
+  authDomain: "library-548c9.firebaseapp.com",
+  databaseURL: "https://library-548c9.firebaseio.com",
+  projectId: "library-548c9",
+  storageBucket: "library-548c9.appspot.com",
+  messagingSenderId: "124692746321",
+  appId: "1:124692746321:web:5c5f4eed26de5b1558a870"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+// Create DB Reference
+const dbRefObject = firebase.database().ref('books');
+
+/* // Sync dbchanges to webApp
+dbRefObject.on('value',snap =>console.log(snap.val())); */
+
 function Book(id,title, author,url, status) {
     this.id = id;
     this.title = title;
@@ -26,11 +44,41 @@ function addBookToLibrary(book) {
   render(library);
 }
 
+function addBookToDB(book){
+  dbRefObject.child(book.id).set(book,function(err){
+      if(err){
+        console.log(err);
+      }else{
+        console.log("Book inserted successfully: " + book.id);
+      }
+  })
+}
+
+function deleteBookFromDB(bookId){
+  dbRefObject.child(bookId).remove(function(err){
+    if(err){
+      console.log(err);
+    }else{
+      console.log("Book deleted successfully: " + bookId);
+    }
+  });
+}
+
+function updateBookInDB(book){
+  dbRefObject.child(book.id).set(book,function(err){
+    if(err){
+      console.log(err);
+    }else{
+      console.log("Book updated successfully: " + book.id);
+    }
+  });
+}
+
 function deleteBookCard(bookId){
-  for(let i=0; i<library.length; i++) {
+  for(let i=1; i<library.length; i++) {
     if(Number(bookId) === library[i].id){
-      console.log(123123);
       library.splice(i,1);
+      deleteBookFromDB(bookId);
       render(library);
       return;
     }
@@ -38,7 +86,7 @@ function deleteBookCard(bookId){
 }
 
 function changeBookReadStatus(event,bookId){
-  console.log(bookId);
+  
   let readStatusState = {
     "Not Started" : "In Progress",
     "In Progress" : "Finished",
@@ -50,6 +98,7 @@ function changeBookReadStatus(event,bookId){
       let book = library[i];
       book.status = readStatusState[book.status];
       event.target.textContent = book.status;
+      updateBookInDB(book);
       return;
     }
   }
@@ -127,7 +176,7 @@ function resetForm(){
 function saveBookData(event){
     event.preventDefault();
 
-    const id =  + new Date(); //using timeStamp as id 
+    const id = +new Date(); //using timeStamp as id 
     const title = form.elements['title'].value;
     const author = form.elements['author'].value;
     const url = form.elements['url'].value;
@@ -135,6 +184,7 @@ function saveBookData(event){
     
     const bookData = new Book(id,title,author,url,status);
     addBookToLibrary(bookData);
+    addBookToDB(bookData);
     resetForm();
     toggleModal();
 }
@@ -144,9 +194,15 @@ function toggleModal(event){
   modal.classList.toggle("modal--open");
 }
 
-//bookCardDeleteBtn.addEventListener('click',deleteBookCard);
 form.addEventListener('submit',saveBookData);
 openModalBtn.addEventListener('click',toggleModal);
 closeModalBtn.addEventListener('click',toggleModal);
 
-window.onload = (event) => {render(library)};
+window.onload = (event) => {
+  dbRefObject.once('value',bookList =>{
+    bookList.forEach(book=>{
+      library.push(book.val());  
+    });
+    render(library);
+  });
+};
