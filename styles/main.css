@@ -74,6 +74,7 @@ img{
   border-bottom: 2px solid #000;
 } */
 
+.nav__link--active,
 .nav__link:not(.nav__link-title):hover{
     border-bottom: 2px solid #000;
 }
@@ -94,6 +95,7 @@ img{
 .book-card{
     display: flex;
     flex-direction: column;
+    position: relative;
     border: 1px solid rgba(0,0,0,0.1);
     height: 42vh;
 }
@@ -104,6 +106,14 @@ img{
 }
 .book-card:hover .book-card__img{
     background-size: 120%;
+}
+
+.book-card__status-icon{
+    position: absolute;
+    right: 0;
+    padding:0.4em;
+    border: 4px solid whitesmoke;
+    border-radius: 50%;
 }
 .book-card__img{
     flex: 1;
@@ -284,12 +294,12 @@ img{
 }
 
 .modal__btn-addBook{
-    /* margin-top: 1em; */
     cursor: pointer;
     height: 3em;
     border: none;
+    outline: none;
     border-radius: 18px;
-    color:white;
+    color:#fff;
     background-color: var(--blue);
 }
 
