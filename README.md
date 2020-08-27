@@ -5,7 +5,7 @@ It's a sample CRUD web app allow you to add your favourite books and movies onli
 ## Features
 
 - Basics CRUD operations.
-- Allow to add book,delte book and update book read status.
+- Allow to add book,delete book and update book read status.
 - Using firebase realtime database for storing collection of book.
 
 ## Contributing
