@@ -12,6 +12,7 @@
 
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
 
   // Create DB Reference
   const dbRefObject = firebase.database().ref('books');
