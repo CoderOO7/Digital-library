@@ -79,7 +79,9 @@
   }
 
   function updateBookInDB(book){
-    dbRefObject.child(book.id).set(book,function(err){
+    let key = '/books/'+book.id;
+    let value = book;
+    firebase.database().ref().update({key:value},function(err){
       if(err){
         console.log(err);
       }else{
