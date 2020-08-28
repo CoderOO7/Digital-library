@@ -54,12 +54,21 @@
     return this.status;
   }
 
+  /**
+   * Add book object to libaray array and render the DOM
+   * @param {Object} book - Book instance
+   */
   function addBookToLibrary(book) {
     library.push(book);
     render(library);
   }
 
-
+  /**
+   * It check if book exist in firebase db or not, used to prevent
+   * invalid CRUD operations.
+   * @param {String} bookId      -  The id of book stored in db collection.  
+   * @return {Promise.<Object>}  -  A promise that return object if resolved. 
+   */
   function checkIfBookExistsInDB(bookId) {
     return dbRefObject
       .child(bookId)
@@ -71,6 +80,10 @@
       });
   }
 
+  /**
+   * Create a Book document in fireabse realtime database/
+   * @param {Object} book - Book instance
+   */
   function addBookToDB(book){
     dbRefObject.child(book.id).set(book,function(err){
         if(err){
@@ -81,6 +94,10 @@
     })
   }
 
+  /**
+   * Delete a Book document from  fireabse realtime database
+   * @param {String} bookId - Id of the book document to be deleted.
+   */
   function deleteBookFromDB(bookId){
     checkIfBookExistsInDB(bookId)
       .then(({bookExists})=>{
@@ -99,6 +116,10 @@
       .catch( err=> console.error(err))
   }
 
+  /**
+   * Create a Book document in fireabse realtime database
+   * @param {Book} book - Book instance
+   */
   function updateBookInDB(book){
     checkIfBookExistsInDB(book.id)
     .then(({bookExists})=>{
@@ -116,7 +137,12 @@
     })
     .catch( err=> console.error(err))
   }
-  
+
+  /**
+   * If the book with provided bookId is valid then,then book document deleted from 
+   * local library and firebase realtime databse.
+   * @param {String} bookId - The id of book to be deleted.
+   */
   function deleteBookCard(bookId){
     for(let i=0; i<library.length; i++) {
       if(Number(bookId) === library[i].id){
@@ -128,6 +154,11 @@
     }
   }
 
+  /**
+   * Used to toggle the book read status as well as color of bookStatus Icon.
+   * @param {Object} event - The MouseClick Event
+   * @param {String} bookId -  The id of Book document to be updated.
+   */
   function changeBookReadStatus(event,bookId){
     for(let i=0; i<library.length; i++) {
       if(Number(bookId) === library[i].id){
@@ -143,6 +174,10 @@
     }
   }
 
+  /**
+   * Add Click Listener to Delete button and ReadStatus span element
+   * of bookCard.
+   */
   function addListnerToBookCards(){
     document.querySelectorAll(".book-card").forEach((bookCard)=>{
       const bookId = bookCard.getAttribute('id');
@@ -154,12 +189,20 @@
     })
   }
 
+  /**
+   * Add Click Listener to Delete button and ReadStatus span element
+   * of bookCard.
+   */
   function clearData(){
     document.querySelectorAll(".book-card").forEach((bookCard)=>{
       bookCard.remove();
     })
   }
 
+  /**
+   * Render the DOM
+   * @param {Object} book - The Book instance
+   */
   function render(books){
     const booksContainer= document.querySelector('.books-holder');
 
@@ -207,14 +250,22 @@
       bookCardOps.appendChild(bookCardReadStatus);
       bookCardOps.appendChild(bookCardDeleteBtn);
     };
-    
+    // Adding listener to each new BookCard created in DOM
     addListnerToBookCards();
   }
-
+  
+  // Reset the form content
   function resetForm(){
     form.reset();
   }
 
+  /**
+   * Form submit button event handler, used to fetch the user input data
+   * and use them to create new Book instance whose entry saved in local
+   * library and firebase realtime database.
+   * @param {Object} -  The Submit event occur on submit button click 
+   * or on pressing Enter to form input fields.
+   */  
   function saveBookData(event){
       event.preventDefault();
 
@@ -231,6 +282,10 @@
       toggleModal();
   }
 
+  /**
+   * Used to create a sample book entry on startup that only 
+   * store in local library not firebase realtime database. 
+   */
   (function showSampleOnStartup(){
     const id = +new Date();
     const title = "Keep Going";
@@ -243,10 +298,16 @@
     render(library);
   }());
 
+  // Toggle the form modal,if open then close it, else vice-versa.
   function toggleModal(){
     modal.classList.toggle("modal--open");
   }
 
+  /**
+   * Used to fetch all data once on startup from firebase realtime database
+   * which return reponse as POJO and this POJO is used to create 
+   * a new Book Object to add in local library. 
+   */
   function fetchDataFromDB(){
     dbRefObject.once('value',bookList =>{
       bookList.forEach(book=>{
@@ -263,8 +324,12 @@
     })
   } 
 
+  // Add submit event on form to fetch input fields value and save them
   form.addEventListener('submit',saveBookData);
+  // Add click event to toggleModal 
   openModalBtn.addEventListener('click',(e)=>toggleModal());
+  // Add click event to toggleModal 
   closeModalBtn.addEventListener('click',(e)=>toggleModal());
+  // Add DOMContentLoaded event to fetch the data from firebase as soon as DOM parsing complete.
   document.addEventListener('DOMContentLoaded',(e)=>fetchDataFromDB());
-}());
+}()); // Invoke to prevent manipulation of data using global varible and functions on console.
