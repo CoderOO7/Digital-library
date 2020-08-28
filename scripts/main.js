@@ -59,6 +59,18 @@
     render(library);
   }
 
+
+  function checkIfBookExistsInDB(bookId) {
+    return dbRefObject
+      .child(bookId)
+      .once('value')
+      .then(dataSnapshot => {
+        return Promise.resolve({
+          bookExists: dataSnapshot.exists()
+        });
+      });
+  }
+
   function addBookToDB(book){
     dbRefObject.child(book.id).set(book,function(err){
         if(err){
@@ -70,25 +82,39 @@
   }
 
   function deleteBookFromDB(bookId){
-    dbRefObject.child(bookId).remove(function(err){
-      if(err){
-        console.log(err);
-      }else{
-        console.log("Book deleted successfully: " + bookId);
-      }
-    });
+    checkIfBookExistsInDB(bookId)
+      .then(({bookExists})=>{
+        if(bookExists){
+          dbRefObject.child(bookId).remove(function(err){
+            if(err){
+              console.log(err);
+            }else{
+              console.log("Book deleted successfully: " + bookId);
+            }
+          });
+        }else{
+          console.warn("Book don't exist in database");
+        }
+      })
+      .catch( err=> console.error(err))
   }
 
   function updateBookInDB(book){
-    let key = '/books/'+book.id;
-    let value = book;
-    firebase.database().ref().update({key:value},function(err){
-      if(err){
-        console.log(err);
+    checkIfBookExistsInDB(book.id)
+    .then(({bookExists})=>{
+      if(bookExists){
+        dbRefObject.update({[book.id]:book},function(err){
+          if(err){
+            console.log(err);
+          }else{
+            console.log("Book updated successfully: " + book.id);
+          }
+        });
       }else{
-        console.log("Book updated successfully: " + book.id);
+        console.warn("Book don't exist in database");
       }
-    });
+    })
+    .catch( err=> console.error(err))
   }
   
   function deleteBookCard(bookId){
