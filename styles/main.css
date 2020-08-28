@@ -110,23 +110,23 @@ img{
 
 .book-card__status-icon{
     position: absolute;
-    right: 0;
-    padding:0.4em;
-    border: 4px solid whitesmoke;
+    top: 3px;
+    right: 3px;
+    padding:0.3em;
+    border: 3px solid whitesmoke;
     border-radius: 50%;
 }
 .book-card__img{
-    flex: 1;
-    /*background-position: scale;
-    background-size: cover; */
+    height: 34vh;
 }
 .book-card__img > img{
     object-fit: fill;
     width: 100%;
-    height: 34vh;
+    height: inherit;
 }
 .book-card__info {
     display: flex;
+    flex: 1;
     position: relative;
     flex-direction: column;
     overflow:hidden;
@@ -140,6 +140,11 @@ img{
     font-style: italic;
     color: var(--gray,#9f9f9f);
 }
+.book-card__info > .book-card__title,
+.book-card__info > .book-card__author{
+    padding:0.2em;
+}
+
 .book-card__ops{
     display: none;
     position: absolute;
