@@ -190,8 +190,7 @@
   }
 
   /**
-   * Add Click Listener to Delete button and ReadStatus span element
-   * of bookCard.
+   * Remove all BookCard from DOM.
    */
   function clearData(){
     document.querySelectorAll(".book-card").forEach((bookCard)=>{
