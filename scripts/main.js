@@ -1,15 +1,14 @@
 (function(){
   const firebaseConfig = {
-    apiKey: "AIzaSyCuCgN6Q-8QVjgmw8NuY5Xuf_bEEHfjYz0",
-    authDomain: "digitallibrary-3a5de.firebaseapp.com",
-    databaseURL: "https://digitallibrary-3a5de.firebaseio.com",
-    projectId: "digitallibrary-3a5de",
-    storageBucket: "digitallibrary-3a5de.appspot.com",
-    messagingSenderId: "121376977943",
-    appId: "1:121376977943:web:8e357c61f12330a0f05852",
-    measurementId: "G-THMCJ3KJJ1"
-  }
-
+    apiKey: "AIzaSyAdvN-1jQw60ZcpcqDjSQISV9DObqNB3mI",
+    authDomain: "digital-library-16db6.firebaseapp.com",
+    databaseURL: "https://digital-library-16db6.firebaseio.com",
+    projectId: "digital-library-16db6",
+    storageBucket: "digital-library-16db6.appspot.com",
+    messagingSenderId: "632734322026",
+    appId: "1:632734322026:web:3ebda207a33911f7e76913",
+    measurementId: "G-1VP17NY0G1"
+  };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
